@@ -1,161 +1,187 @@
 package no.hvl.dat100.lab5.tabeller;
 
 public class Tabeller {
+    public static void main(String[] args) {
+        
+        int[] array1 = {1, 2, 3, 4, 5};
+        int[] array2 = {6, 7, 8, 9, 10};
+        int testTall = 3;
+
+        System.out.println("a) skrivUt:");
+        Tabeller.skrivUt(array1);
+
+        System.out.println("b) tilStreng:");
+        Tabeller.tilStreng(array1);
+
+        System.out.println("c) summer:");
+        Tabeller.summer(array1);
+
+        System.out.println("d) finnesTall:");
+        System.out.println(Tabeller.finnesTall(array1, testTall));
+
+        System.out.println("e) posisjonTall:");
+        Tabeller.posisjonTall(array1, testTall);
+
+        System.out.println("f) reverser:");
+        Tabeller.reverser(array1);
+
+        System.out.println("\ng) erSortert:");
+        System.out.println(Tabeller.erSortert(array1));
+
+        Tabeller.settSammen(array1, array2);
+    }
+	
 
 	// a)
-	public static void main (String[] args) {
-		//int[] testtab = {1, 4, 6};
-		int[] tab1 = {1, 2, 3, 4};
-		int[] tab2 = {1};
-		int[] tab3 = new int[0];
-		
-		System.out.println("tabeller:");
-		skrivUt(tab1);
-		skrivUt(tab2);
-		skrivUt(tab3);
-		
-		String str1 = tilStreng(tab1);
-		String str2 = tilStreng(tab2);
-		String str3 = tilStreng(tab3);
-		
-		System.out.println("\nStrings i en print:");
-		System.out.println(str1 + str2 + str3);
-		
-		System.out.println("\nSum tab1:");
-		int sum1 = summer(tab1);
-		System.out.println(sum1);
-		
-		boolean finnes3 = finnesTall(tab1, 3);
-		boolean finnes5 = finnesTall(tab1, 5);
-		System.out.println("\ner 3 en del av tab1? : "+finnes3);
-		System.out.println("er 5 en del av tab1? : "+finnes5);
-		
-		int posfor3 = posisjonTall(tab1, 3);
-		System.out.println("\n"+3+" er i posisjon "+posfor3);
-		
-		int[] revTab1 = reverser(tab1);
-		System.out.println("\n reverse av tab1: ");
-		skrivUt(revTab1);
-		
-		System.out.print("\nEr tab1 sortert: ");
-		System.out.println(erSortert(tab1));
-		System.out.print("\nEr revTab1 sortert: ");
-		System.out.println(erSortert(revTab1));
-		
-		System.out.println("\nEr tab1 sortert="+erSortert(tab1));
-		System.out.println("Er tab2 sortert="+erSortert(tab2));
-		System.out.println("Er tab3 sortert="+erSortert(tab3));
-		System.out.println("Er revTab3 sortert="+erSortert(revTab1));
-		
-		int[] sammenTab = settSammen(tab1, tab2);
-		skrivUt(sammenTab);
-		
-		
-		
-	}
 	
 	public static void skrivUt(int[] tabell) {
-		System.out.print("[");
-		for(int num:tabell) {
-			System.out.print(num + ", ");
-		}
-		System.out.println("]");
+		String utskriftTabell = "";
+		
+        for(int i = 0; i < tabell.length; i++) {
+            if(i == 0) {
+                utskriftTabell += ("[");
+            }
+            utskriftTabell +=(tabell[i]);
+
+            if(i < tabell.length - 1) {
+            	utskriftTabell += (", ");
+            }
+
+            if(i == tabell.length - 1) {
+            	utskriftTabell +=("]\n");
+            }
+
+        }
+		System.out.println(utskriftTabell);
 	}
 
 	// b)
 	public static String tilStreng(int[] tabell) {
-		if(tabell == null || tabell.length == 0) {
-			return "[]";
-		}
-		String result =  "["+tabell[0]; 
-		for(int i =1; i<tabell.length; i++) {
-			String temp = Integer.toString(tabell[i]);
-			result = result+","+temp;
-		}
-		result= result +"]";
-		return result;	
+	    if (tabell.length == 0) {
+	        return "[]";
+	    }
+
+	    String formatertStreng = "[";
+
+	    for (int i = 0; i < tabell.length; i++) {
+	        formatertStreng += tabell[i];
+
+	        if (i < tabell.length - 1) {
+	            formatertStreng += ",";
+	        }
+	    }
+
+	    formatertStreng += "]";
+	    System.out.println(formatertStreng);
+	    return formatertStreng;    
 	}
+
 
 	// c)
 	public static int summer(int[] tabell) {
-		int sum = 0;
-		for(int temp:tabell) {
-			sum = sum+temp;
-		}
-		return sum;
+		System.out.println("\nTall i tabell summert vha. for-løkke");
+        int total = 0;
+        for(int i = 0; i < tabell.length; i++) {
+            total += tabell[i];
+        }
+        System.out.println(total);
+        total = 0;
+        System.out.println("\nTall i tabell summert vha. while-løkke:");
+        int i = 0;
+        while(i < tabell.length) {
+        	total += tabell[i];
+            i++;
+        }
+        System.out.println(total); 
+        System.out.println("\nTall i tabell summert vha. utvided for-løkke:");
+        total = 0;
+        for(int num : tabell) {
+        	total += num;
+        }
+        System.out.println(total);
+        return total;
 	}
 
 	// d)
 	public static boolean finnesTall(int[] tabell, int tall) {
-		int i = 0;
-		while (i < tabell.length) {
-			if(tabell[i] == tall) {
-				return true;
-			}
-			else {
-				i++;
-			}
-			
-		}
-		return false;
+        for(int i = 0; i < tabell.length; i++) {
+            if (tabell[i] == tall) {
+                return true;
+            }
+        }
+        return false;
 	}
 
 	// e)
 	public static int posisjonTall(int[] tabell, int tall) {
-		int i = 0;
-		while(i<tabell.length) {
-			if (tabell[i] == tall) {
-				return i;
-			}
-			else
-				i++;
-		}
-		return -1;
-
-		
+        for(int i = 0; i < tabell.length; i++) {
+            if (tabell[i] == tall) {
+                System.out.println("Nummeret " + tall + " funnet tidligst på index[" + i + "]\n");
+                return i;
+            }
+        }
+        return -1; // har altså da brukt -1 for å vise at tallet ikke ble funnet
 	}
 
 	// f)
 	public static int[] reverser(int[] tabell) {
-		int temp = tabell.length;
-		int[] nyTabell = new int[temp];
-		for (int i = 0; i<temp; i++) {
-			nyTabell[temp-i-1]=tabell[i];
-		}
-		return nyTabell;
+        for(int num : tabell) {
+            System.out.print(num);
+        }
+
+        int[] nyTabell = new int[tabell.length];
+        int tabellPos = 0;
+
+        for(int i = tabell.length -1; i >= 0; i--) {
+            nyTabell[tabellPos] = tabell[i];
+            tabellPos += 1;
+        }
+        System.out.println();
+        for(int num : nyTabell) {
+            System.out.print(num);
+        }
+        System.out.println();
+        return(nyTabell); 
+
 	}
 
 	// g)
 	public static boolean erSortert(int[] tabell) {
-		if (tabell.length == 0) {
-			return true;
-		} else {
-			int tall = tabell[0];
-
-			for (int i = 0; i < tabell.length - 1; i++) {
-				if (tall > tabell[i + 1]) {
-					return false;
-				}
-			}
-		}
-		return true;
-
+        for (int i = 0; i < tabell.length - 1; i++) {     
+            if (tabell[i] >= tabell[i + 1]) {
+                return false;  
+            }
+        }
+        return true;
 	}
 
 	// h)
 	public static int[] settSammen(int[] tabell1, int[] tabell2) {
-		int lengde1 = tabell1.length;
-		int lengde2 = tabell2.length;
-		int[] nyTabell = new int[lengde1+lengde2];
-		
-	    for(int i = 0; i < lengde1; i++) {
-	        nyTabell[i] = tabell1[i];
-	    }
-	    for(int i = 0; i < lengde2; i++) {
-	        nyTabell[lengde1 + i] = tabell2[i];
-	    }
-	    
-	    return nyTabell;
+        int [] sammensattTabell = new int[tabell1.length + tabell2.length];
+        int sammensattTabellIndex = 0;
+        for(int i = 0; i < tabell1.length; i ++) {
+            sammensattTabell[i] = tabell1[i];
+            sammensattTabellIndex += 1;
+        }
 
+        for(int i = 0; i < tabell2.length; i ++) {
+            sammensattTabell[sammensattTabellIndex] = tabell2[i];
+            sammensattTabellIndex += 1;
+        }
+
+
+        String formatedTabell = "";
+        System.out.println("\n\nOppgave h):\n\nTabell 1:");
+        skrivUt(tabell1);
+        System.out.println("\nTabell 2:");
+        skrivUt(tabell2);
+        System.out.println("\nSammenslått:");
+        formatedTabell += "[";
+        for(int num : sammensattTabell) {
+            formatedTabell += (num + ", ");
+        }
+        formatedTabell = formatedTabell.substring(0, formatedTabell.length() - 2) + "]"; // Fjerner siste ", " fra enden av strengen
+        System.out.println(formatedTabell);
+        return sammensattTabell;
 	}
 }
