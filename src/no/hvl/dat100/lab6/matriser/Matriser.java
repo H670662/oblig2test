@@ -126,7 +126,20 @@ public class Matriser {
 	}
 
 	// f)
-	public static int[][] multipliser(int[][] a, int[][] b) {		
+	public static int[][] multipliser(int[][] a, int[][] b) {	
+        int[][] columnTotal = new int[a.length][b[0].length];
+        for (int k = 0; k < a.length; k++) {  // Itererer gjennom radene i matrise a
+            for (int i = 0; i < b[0].length; i++) {  // Itererer gjennom kolonnene i matrise b
+                for (int j = 0; j < a[k].length; j++) {  // Itererer gjennom elementene for multiplikasjon
+                    columnTotal[k][i] += a[k][j] * b[j][i];
+                }
+            }
+        }
+
+
+        return columnTotal;
+		
+		/*
 		int[][] multiplisert = new int[a.length][a.length];
 		
 		for (int rad = 0; rad<a.length; rad++){
@@ -140,6 +153,7 @@ public class Matriser {
 			}
 		}
 		return multiplisert;
+		*/
 	}
 }
 
